@@ -1,406 +1,497 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Возвращение</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <style>
-    :root {
-      --milk: #f5efe6;
-      --cream: #e8dccb;
-      --sand: #c9b79c;
-      --mist: #b9c4c8;
-      --graphite: #1f2528;
-      --brown: #6f5846;
-      --blue: #1f3a4a;
-      --glass: rgba(255,255,255,0.18);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
-      background: var(--milk);
-      color: var(--graphite);
-      overflow-x: hidden;
-    }
-
-    .hero {
-      min-height: 100vh;
-      padding: 28px 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        linear-gradient(rgba(31,37,40,.18), rgba(31,37,40,.42)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
-      background-size: cover;
-      background-position: center;
-      animation: slowMove 22s ease-in-out infinite alternate;
-      color: white;
-    }
-
-    @keyframes slowMove {
-      from { background-position: center top; }
-      to { background-position: center bottom; }
-    }
-
-    .logo {
-      font-family: Georgia, serif;
-      font-size: 28px;
-      letter-spacing: .06em;
-    }
-
-    .hero-content {
-      padding-bottom: 40px;
-      animation: fadeUp 1.6s ease forwards;
-    }
-
-    .season {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(16px);
-      font-size: 13px;
-      margin-bottom: 22px;
-    }
-
-    h1 {
-      font-family: Georgia, serif;
-      font-size: 48px;
-      line-height: 0.95;
-      margin: 0 0 20px;
-      font-weight: 500;
-    }
-
-    p {
-      font-size: 16px;
-      line-height: 1.65;
-      color: rgba(31,37,40,.72);
-    }
-
-    .hero p {
-      color: rgba(255,255,255,.82);
-      max-width: 340px;
-    }
-
-    .btn {
-      width: 100%;
-      margin-top: 24px;
-      padding: 17px 22px;
-      border: none;
-      border-radius: 999px;
-      background: var(--blue);
-      color: white;
-      font-size: 15px;
-      letter-spacing: .04em;
-      transition: .5s ease;
-    }
-
-    .btn:active {
-      transform: scale(.97);
-      opacity: .85;
-    }
-
-    section {
-      padding: 46px 22px;
-    }
-
-    .section-title {
-      font-family: Georgia, serif;
-      font-size: 34px;
-      font-weight: 500;
-      margin: 0 0 18px;
-    }
-
-    .cards {
-      display: grid;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .card {
-      min-height: 170px;
-      border-radius: 28px;
-      padding: 22px;
-      background: rgba(255,255,255,.55);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 20px 60px rgba(31,37,40,.08);
-      border: 1px solid rgba(255,255,255,.45);
-    }
-
-    .card.dark {
-      color: white;
-      background:
-        linear-gradient(rgba(31,37,40,.15), rgba(31,37,40,.62)),
-        url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80");
-      background-size: cover;
-      background-position: center;
-    }
-
-    .card.food {
-      color: white;
-      background:
-        linear-gradient(rgba(31,37,40,.15), rgba(31,37,40,.72)),
-        url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80");
-      background-size: cover;
-      background-position: center;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-family: Georgia, serif;
-      font-size: 24px;
-      font-weight: 500;
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 14px;
-    }
-
-    .dark p, .food p {
-      color: rgba(255,255,255,.78);
-    }
-
-    .booking {
-      background: var(--cream);
-      border-radius: 36px 36px 0 0;
-    }
-
-    .filter-row {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 8px 0 16px;
-    }
-
-    .chip {
-      white-space: nowrap;
-      padding: 10px 15px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.55);
-      color: var(--graphite);
-      font-size: 13px;
-    }
-
-    .map {
-      height: 260px;
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,.8), transparent 14%),
-        radial-gradient(circle at 70% 60%, rgba(255,255,255,.65), transparent 12%),
-        linear-gradient(135deg, #aeb8b9, #6f7c78);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .point {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--milk);
-      box-shadow: 0 0 24px rgba(255,255,255,.9);
-    }
-
-    .p1 { top: 28%; left: 24%; }
-    .p2 { top: 58%; left: 68%; }
-    .p3 { top: 72%; left: 38%; }
-
-    .form {
-      background: var(--graphite);
-      color: white;
-      border-radius: 36px 36px 0 0;
-      padding-bottom: 70px;
-    }
-
-    input, textarea {
-      width: 100%;
-      margin-top: 12px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 18px;
-      background: rgba(255,255,255,.08);
-      color: white;
-      font-size: 15px;
-      outline: none;
-    }
-
-    textarea { min-height: 110px; }
-
-    .contacts {
-      margin-top: 28px;
-      font-size: 14px;
-      color: rgba(255,255,255,.72);
-      line-height: 1.8;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(26px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Возвращение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+--bg:#F3EFE8;
+--card:#FBFAF7;
+--green:#8EA784;
+--dark:#2D352C;
+--text:#2E342E;
+--muted:#8A9583;
+--line:#E6E0D7;
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+body{
+background:var(--bg);
+font-family:'Inter',sans-serif;
+color:var(--text);
+padding-bottom:120px;
+overflow-x:hidden;
+}
+.hero{
+height:100vh;
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.hero video{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(0.75);
+}
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.18);
+backdrop-filter:blur(1px);
+}
+.hero-content{
+position:relative;
+z-index:2;
+text-align:center;
+color:white;
+padding:24px;
+animation:fade 2s ease;
+}
+.hero h1{
+font-family:'Cormorant Garamond',serif;
+font-size:72px;
+font-weight:500;
+letter-spacing:2px;
+margin-bottom:12px;
+}
+.hero p{
+font-size:18px;
+opacity:0.92;
+}
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+.page{
+display:none;
+padding:28px;
+animation:fade .5s ease;
+}
+.page.active{
+display:block;
+}
+.section-label{
+color:var(--green);
+font-size:14px;
+letter-spacing:4px;
+text-transform:uppercase;
+margin-bottom:12px;
+}
+.title{
+font-family:'Cormorant Garamond',serif;
+font-size:64px;
+line-height:0.95;
+margin-bottom:20px;
+font-weight:500;
+}
+.subtitle{
+color:var(--muted);
+font-size:18px;
+line-height:1.6;
+margin-bottom:28px;
+}
+.card{
+background:rgba(255,255,255,0.65);
+border:1px solid rgba(255,255,255,0.4);
+backdrop-filter:blur(20px);
+border-radius:34px;
+padding:24px;
+margin-bottom:22px;
+box-shadow:0 10px 40px rgba(0,0,0,0.04);
+transition:0.35s;
+}
+.card:hover{
+transform:translateY(-3px);
+}
+.hero-card{
+overflow:hidden;
+padding:0;
+position:relative;
+height:320px;
+}
+.hero-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+.hero-card .inner{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:28px;
+background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+color:white;
+}
+.hero-card h2{
+font-family:'Cormorant Garamond',serif;
+font-size:42px;
+margin-bottom:10px;
+}
+.button{
+width:100%;
+background:var(--dark);
+color:white;
+border:none;
+padding:18px;
+border-radius:999px;
+font-size:17px;
+margin-top:18px;
+cursor:pointer;
+transition:0.35s;
+}
+.button:hover{
+opacity:0.9;
+transform:scale(0.99);
+}
+.house{
+display:flex;
+gap:18px;
+align-items:center;
+margin-bottom:18px;
+}
+.house img{
+width:110px;
+height:110px;
+object-fit:cover;
+border-radius:24px;
+}
+.house h3{
+font-size:26px;
+margin-bottom:8px;
+font-family:'Cormorant Garamond',serif;
+}
+.house p{
+color:var(--muted);
+line-height:1.5;
+}
+.price{
+margin-top:10px;
+font-weight:600;
+color:var(--green);
+}
+.menu-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 0;
+border-bottom:1px solid var(--line);
+}
+.plus{
+width:46px;
+height:46px;
+border-radius:50%;
+background:var(--dark);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+cursor:pointer;
+}
+.map{
+width:100%;
+border-radius:34px;
+overflow:hidden;
+margin-top:20px;
+}
+.map img{
+width:100%;
+display:block;
+}
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:92px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(20px);
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid rgba(0,0,0,0.06);
+z-index:100;
+}
+.nav-item{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+font-size:13px;
+color:#9DA58F;
+cursor:pointer;
+transition:0.3s;
+}
+.nav-item.active{
+color:var(--dark);
+}
+.icon{
+font-size:24px;
+}
+.footer{
+margin-top:60px;
+padding-top:40px;
+border-top:1px solid var(--line);
+color:var(--muted);
+line-height:2;
+}
+@media(max-width:700px){
+.hero h1{
+font-size:52px;
+}
+.title{
+font-size:52px;
+}
+.house{
+flex-direction:column;
+align-items:flex-start;
+}
+.house img{
+width:100%;
+height:220px;
+}
+}
+</style>
 </head>
-
 <body>
-  <main>
-    <section class="hero">
-      <div class="logo">Возвращение</div>
-
-      <div class="hero-content">
-        <div class="season">Осенний возврат · туман · вода · лес</div>
-        <h1>Место, куда хочется вернуться</h1>
-        <p>Премиальный глэмпинг-отель в эстетике slow living, wellness и digital detox.</p>
-        <button class="btn" onclick="scrollToBooking()">Забронировать ритуал</button>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Тишина как сервис</h2>
-      <p>«Возвращение» — это не просто домики в лесу. Это сезонный ритуал: мягкий свет, северная вода, баня, завтрак у двери и ощущение приватного retreat.</p>
-
-      <div class="cards">
-        <div class="card dark">
-          <h3>Для двоих</h3>
-          <p>Камерный домик, вечерний чан и ужин при мягком свете.</p>
-        </div>
-        <div class="card">
-          <h3>Workation</h3>
-          <p>Тишина, стабильный ритм, завтрак и рабочее место с видом на лес.</p>
-        </div>
-        <div class="card">
-          <h3>Digital detox</h3>
-          <p>Минимум уведомлений. Максимум воздуха, воды и собственного времени.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="booking" id="booking">
-      <h2 class="section-title">Бронирование</h2>
-      <p>Выберите сценарий возвращения и домик под свой сезон.</p>
-
-      <div class="filter-row">
-        <div class="chip">Для пар</div>
-        <div class="chip">Workation</div>
-        <div class="chip">Компания</div>
-        <div class="chip">Corporate</div>
-      </div>
-
-      <div class="cards">
-        <div class="card">
-          <h3>Дом у воды</h3>
-          <p>Вид на туманное озеро · высокая приватность · баня рядом</p>
-        </div>
-        <div class="card">
-          <h3>Лесной дом</h3>
-          <p>Северный лес · мягкий свет · завтраки у двери</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Мой возврат</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Календарь сезонов</h3>
-          <p>История визитов, любимый домик, персональные рекомендации и статус гостя.</p>
-        </div>
-        <div class="card">
-          <h3>Коллекция возвращений</h3>
-          <p>Осень, сонный январь, прилёт, пришвинская весна — ваши периоды остаются на карте.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Центр услуг</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Баня и чан</h3>
-          <p>Тёплый вечер, пар, вода и отсутствие спешки.</p>
-        </div>
-        <div class="card">
-          <h3>SPA и массаж</h3>
-          <p>Wellness-программы, йога и восстановление после города.</p>
-        </div>
-        <div class="card">
-          <h3>Оставить у двери</h3>
-          <p>Еда, завтрак или напитки без лишнего контакта.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Food</h2>
-      <div class="card food">
-        <h3>Ужин без шума</h3>
-        <p>Романтические ужины, BBQ-наборы, завтраки, workation-сеты и SPA-напитки.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Карта территории</h2>
-      <div class="map">
-        <div class="point p1"></div>
-        <div class="point p2"></div>
-        <div class="point p3"></div>
-      </div>
-      <p>Домики, тропинки, SPA, шатёр, костровые зоны и маршруты прогулок — без ярких маркеров, только мягкий свет.</p>
-    </section>
-
-    <section>
-      <h2 class="section-title">Сезоны</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Осенний возврат</h3>
-          <p>Туман, вода, яблоневый сад и медленное утро.</p>
-        </div>
-        <div class="card">
-          <h3>Сонный январь</h3>
-          <p>Тишина, снег, баня и тёплый свет в окне.</p>
-        </div>
-        <div class="card">
-          <h3>Пришвинская весна</h3>
-          <p>Первые маршруты, влажный лес и возвращение воздуха.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="form">
-      <h2 class="section-title">Оставить заявку</h2>
-      <p style="color:rgba(255,255,255,.72)">Напишите, каким должен быть ваш возврат.</p>
-
-      <input placeholder="Ваше имя" />
-      <input placeholder="Телефон или Telegram" />
-      <textarea placeholder="Желаемые даты, домик, сценарий отдыха"></textarea>
-
-      <button class="btn" onclick="sendRequest()">Отправить заявку</button>
-
-      <div class="contacts">
-        Почта: kivasokolov@edu.hse.ru<br>
-        Телефон: +7 977 938 57 43
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.expand();
-
-    function scrollToBooking() {
-      document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function sendRequest() {
-      tg.sendData("Пользователь оставил заявку на глэмпинг Возвращение");
-      tg.showAlert("Заявка подготовлена. Мы скоро свяжемся с вами.");
-    }
-  </script>
+<section class="hero" id="hero">
+<video autoplay muted loop playsinline>
+<source src="https://cdn.coverr.co/videos/coverr-tree-branches-moving-in-the-wind-1561574210413?download=1080p" type="video/mp4">
+</video>
+<div class="overlay"></div>
+<div class="hero-content">
+<h1>Возвращение</h1>
+<p>Тишина северного леса. Медленный ритм. Место, куда хочется возвращаться.</p>
+</div>
+</section>
+<div id="home" class="page active">
+<div class="section-label">Осенний возврат</div>
+<div class="title">
+Добро пожаловать
+</div>
+<div class="subtitle">
+Private retreat среди леса, воды и тумана.
+</div>
+<div class="card hero-card">
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop">
+<div class="inner">
+<h2>Лесной лодж</h2>
+<p>Панорамные окна, камин и утренний туман над водой.</p>
+<button class="button" onclick="openBooking()">
+Забронировать
+</button>
+</div>
+</div>
+<div class="card">
+<div class="section-label">Сезон</div>
+<h2 style="font-family:'Cormorant Garamond',serif;font-size:42px;margin-bottom:12px;">
+Сонный январь
+</h2>
+<p class="subtitle">
+Горячий чан под снегом, свечи, хвойный пар и длинные завтраки.
+</p>
+</div>
+</div>
+<div id="booking" class="page">
+<div class="section-label">Бронирование</div>
+<div class="title">
+Выберите дом
+</div>
+<div class="card house">
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop">
+<div>
+<h3>Лесной лодж</h3>
+<p>Персональный чан, камин и панорамный вид.</p>
+<div class="price">12 000 ₽ / ночь</div>
+<button class="button" onclick="bookHouse('Лесной лодж')">
+Забронировать
+</button>
+</div>
+</div>
+<div class="card house">
+<img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1200&auto=format&fit=crop">
+<div>
+<h3>Скандинавский A-frame</h3>
+<p>Минималистичный дом среди сосен.</p>
+<div class="price">8 500 ₽ / ночь</div>
+<button class="button" onclick="bookHouse('A-frame')">
+Забронировать
+</button>
+</div>
+</div>
+</div>
+<div id="mapPage" class="page">
+<div class="section-label">
+Карта территории
+</div>
+<div class="title">
+Тропы и озеро
+</div>
+<div class="card map">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop">
+</div>
+</div>
+<div id="menuPage" class="page">
+<div class="section-label">
+Food section
+</div>
+<div class="title">
+Меню сезона
+</div>
+<div class="card">
+<div class="menu-item">
+<div>
+<h3>Утренняя роса</h3>
+<p>Сырники, ягоды, травяной чай</p>
+</div>
+<div class="plus" onclick="addFood('Утренняя роса')">
++
+</div>
+</div>
+<div class="menu-item">
+<div>
+<h3>Грибной крем-суп</h3>
+<p>Белые грибы, сливки, трюфельное масло</p>
+</div>
+<div class="plus" onclick="addFood('Крем-суп')">
++
+</div>
+</div>
+<div class="menu-item" style="border:none;">
+<div>
+<h3>Ужин у костра</h3>
+<p>BBQ и горячее вино у огня</p>
+</div>
+<div class="plus" onclick="addFood('Ужин у костра')">
++
+</div>
+</div>
+</div>
+</div>
+<div id="profile" class="page">
+<div class="section-label">
+Мой возврат
+</div>
+<div class="title">
+Кирилл
+</div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<p style="color:var(--muted);margin-bottom:10px;">
+Лесной гость
+</p>
+<h2 style="font-size:54px;font-family:'Cormorant Garamond',serif;">
+250
+</h2>
+</div>
+<div style="color:var(--muted);">
+баллов
+</div>
+</div>
+<div style="margin-top:24px;height:8px;background:#d7ded2;border-radius:999px;overflow:hidden;">
+<div style="width:18%;height:100%;background:white;"></div>
+</div>
+</div>
+<div class="card">
+<h3 style="margin-bottom:12px;">История сезонов</h3>
+<p class="subtitle">
+Осенний возврат • Прилёт • Сонный январь
+</p>
+</div>
+<div class="footer">
+Почта: kivasokolov@edu.hse.ru<br>
+Телефон: +79779385743
+</div>
+</div>
+<nav class="bottom-nav">
+<div class="nav-item active" onclick="showPage('home', this)">
+<div class="icon">⌂</div>
+<div>Главная</div>
+</div>
+<div class="nav-item" onclick="showPage('mapPage', this)">
+<div class="icon">⌘</div>
+<div>Карта</div>
+</div>
+<div class="nav-item" onclick="showPage('booking', this)">
+<div class="icon">◫</div>
+<div>Бронь</div>
+</div>
+<div class="nav-item" onclick="showPage('menuPage', this)">
+<div class="icon">✦</div>
+<div>Меню</div>
+</div>
+<div class="nav-item" onclick="showPage('profile', this)">
+<div class="icon">◉</div>
+<div>Профиль</div>
+</div>
+</nav>
+<script>
+const pages = document.querySelectorAll('.page');
+function showPage(id, el){
+pages.forEach(page=>{
+page.classList.remove('active');
+});
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav-item').forEach(item=>{
+item.classList.remove('active');
+});
+el.classList.add('active');
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+}
+function openBooking(){
+showPage('booking', document.querySelectorAll('.nav-item')[2]);
+}
+function addFood(name){
+alert('Добавлено: ' + name);
+if(window.Telegram?.WebApp){
+Telegram.WebApp.sendData(
+JSON.stringify({
+type:'food',
+item:name
+})
+);
+}
+}
+function bookHouse(name){
+alert('Вы выбрали: ' + name);
+if(window.Telegram?.WebApp){
+Telegram.WebApp.sendData(
+JSON.stringify({
+type:'booking',
+house:name
+})
+);
+}
+}
+if(window.Telegram?.WebApp){
+Telegram.WebApp.expand();
+Telegram.WebApp.ready();
+}
+setTimeout(()=>{
+document.getElementById('hero').style.display='none';
+},4500);
+</script>
 </body>
 </html>
