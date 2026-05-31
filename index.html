@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FORREST — премиальный глэмпинг на Дубне</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORREST</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 :root{
-  --bg:#F4EFE6;
-  --card:#FFFDF8;
-  --dark:#1F281D;
-  --text:#2B3028;
-  --muted:#7D806F;
-  --green:#536443;
-  --sage:#DCE5D2;
-  --wood:#7B5838;
-  --gold:#B99058;
-  --line:#E4D8C8;
+  --black:#10140F;
+  --forest:#1D281B;
+  --olive:#637052;
+  --sage:#AEB69D;
+  --cream:#F6F0E4;
+  --ivory:#FFF9EF;
+  --gold:#C7A76C;
+  --muted:#A8A394;
+  --line:rgba(255,255,255,.12);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  background:linear-gradient(180deg,#F8F4EC 0%,#EFE4D4 100%);
-  font-family:'Inter',sans-serif;
-  color:var(--text);
-  padding-bottom:110px;
+  font-family:Inter,sans-serif;
+  background:var(--black);
+  color:var(--ivory);
+  padding-bottom:96px;
   overflow-x:hidden;
 }
 
@@ -38,223 +36,222 @@ body{
   position:relative;
   overflow:hidden;
   display:flex;
-  align-items:center;
-  justify-content:center;
+  align-items:flex-end;
+  padding:0 26px 86px;
 }
 
 .hero video{
   position:absolute;
+  inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:brightness(.58) saturate(.9);
+  filter:brightness(.45) saturate(.75) contrast(1.05);
 }
 
-.overlay{
+.hero:after{
+  content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(to bottom,rgba(22,30,20,.25),rgba(22,30,20,.75));
+  background:
+    linear-gradient(to bottom,rgba(16,20,15,.15),rgba(16,20,15,.98)),
+    radial-gradient(circle at top,rgba(199,167,108,.16),transparent 45%);
 }
 
 .hero-content{
   position:relative;
   z-index:2;
-  text-align:center;
-  color:#FFF8EA;
-  padding:32px;
-  animation:fade 1.8s ease;
+  animation:fade 1.4s ease;
 }
 
-.logo-small{
-  letter-spacing:7px;
-  font-size:12px;
+.label{
+  font-size:11px;
+  letter-spacing:5px;
   text-transform:uppercase;
-  margin-bottom:18px;
+  color:var(--gold);
+  margin-bottom:14px;
 }
 
 .hero h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:82px;
-  font-weight:500;
+  font-family:"Cormorant Garamond",serif;
+  font-size:76px;
+  line-height:.82;
+  font-weight:600;
   letter-spacing:3px;
 }
 
 .hero p{
-  max-width:520px;
-  margin:14px auto 0;
-  font-size:18px;
+  margin-top:22px;
+  font-size:17px;
   line-height:1.65;
-  opacity:.92;
+  color:rgba(255,249,239,.82);
+  max-width:420px;
 }
 
 @keyframes fade{
-  from{opacity:0;transform:translateY(24px);}
-  to{opacity:1;transform:translateY(0);}
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .page{
   display:none;
-  padding:28px;
+  padding:28px 22px 40px;
   animation:fade .45s ease;
 }
 
-.page.active{display:block;}
+.page.active{display:block}
 
-.section-label{
-  color:var(--gold);
-  font-size:11px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  margin-bottom:12px;
-  font-weight:600;
+.top-title{
+  margin-bottom:28px;
 }
 
-.title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:58px;
-  line-height:.96;
+.top-title h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:54px;
+  line-height:.95;
   font-weight:500;
-  color:var(--dark);
-  margin-bottom:18px;
 }
 
-.subtitle{
+.top-title p{
+  margin-top:14px;
   color:var(--muted);
-  font-size:17px;
-  line-height:1.7;
-  margin-bottom:26px;
+  line-height:1.65;
+  font-size:16px;
 }
 
 .card{
-  background:rgba(255,253,248,.86);
-  border:1px solid rgba(123,88,56,.12);
+  background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.045));
+  border:1px solid rgba(255,255,255,.12);
   border-radius:34px;
-  padding:24px;
-  margin-bottom:22px;
-  box-shadow:0 18px 55px rgba(63,45,29,.08);
-  backdrop-filter:blur(18px);
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 24px 70px rgba(0,0,0,.28);
+  backdrop-filter:blur(24px);
 }
 
-.visual-card{
-  height:350px;
-  overflow:hidden;
-  padding:0;
+.image-card{
   position:relative;
+  height:360px;
+  padding:0;
+  overflow:hidden;
 }
 
-.visual-card img{
+.image-card img{
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:saturate(.88) contrast(.96);
+  filter:brightness(.72) saturate(.82);
 }
 
-.visual-card .inner{
+.image-card .content{
   position:absolute;
   inset:auto 0 0 0;
-  padding:30px;
-  background:linear-gradient(to top,rgba(25,32,22,.78),transparent);
-  color:#FFF8EA;
+  padding:28px;
+  background:linear-gradient(to top,rgba(7,10,6,.88),transparent);
 }
 
-.visual-card h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:42px;
-  margin-bottom:8px;
+.image-card h3,
+.card h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:36px;
+  font-weight:500;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:rgba(255,249,239,.68);
+  line-height:1.6;
+  font-size:15px;
 }
 
 .button{
   width:100%;
+  margin-top:20px;
+  padding:17px;
   border:none;
   border-radius:999px;
-  padding:17px;
-  margin-top:18px;
-  background:var(--dark);
-  color:white;
-  font-size:16px;
+  background:var(--ivory);
+  color:var(--black);
+  font-weight:600;
+  font-size:15px;
   cursor:pointer;
-  transition:.3s;
+  transition:.25s;
+}
+
+.button.dark{
+  background:rgba(255,255,255,.09);
+  color:var(--ivory);
+  border:1px solid rgba(255,255,255,.14);
 }
 
 .button:hover{
   transform:translateY(-1px);
-  opacity:.92;
+  opacity:.9;
 }
 
-.light-button{
-  background:var(--sage);
-  color:var(--dark);
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
+.mini{
+  padding:18px;
+  border-radius:24px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.mini strong{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:30px;
+  color:var(--gold);
+}
+
+.mini span{
+  font-size:12px;
+  color:var(--muted);
 }
 
 .house{
-  display:flex;
-  gap:18px;
+  display:grid;
+  grid-template-columns:112px 1fr;
+  gap:16px;
   align-items:center;
 }
 
 .house img{
-  width:120px;
-  height:120px;
-  object-fit:cover;
+  width:112px;
+  height:132px;
   border-radius:26px;
-}
-
-.house h3,
-.package h3,
-.menu-item h3{
-  font-family:'Cormorant Garamond',serif;
-  color:var(--wood);
-  font-size:28px;
-  margin-bottom:8px;
-}
-
-.house p,
-.package p,
-.menu-item p{
-  color:var(--muted);
-  line-height:1.55;
+  object-fit:cover;
 }
 
 .price{
-  margin-top:10px;
+  margin-top:12px;
+  color:var(--gold);
   font-weight:600;
-  color:var(--green);
 }
 
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:16px;
-}
-
-.badge{
-  padding:10px 14px;
-  border-radius:999px;
-  background:var(--sage);
-  color:var(--dark);
-  font-size:13px;
-}
-
-.package{
-  border-left:3px solid var(--gold);
-}
-
-.menu-item{
+.service-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:16px;
+  gap:18px;
   padding:18px 0;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(255,255,255,.09);
 }
 
+.service-row:last-child{border-bottom:none}
+
 .plus{
-  min-width:46px;
-  height:46px;
+  min-width:44px;
+  height:44px;
   border-radius:50%;
-  background:var(--green);
-  color:white;
+  background:var(--gold);
+  color:var(--black);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -262,90 +259,51 @@ body{
   cursor:pointer;
 }
 
-.tree-card{
-  background:linear-gradient(135deg,rgba(220,229,210,.9),rgba(255,253,248,.95));
-}
-
-.tree-visual{
+.tree-img{
   width:100%;
-  height:250px;
+  height:260px;
   border-radius:30px;
-  overflow:hidden;
-  margin:18px 0;
-}
-
-.tree-visual img{
-  width:100%;
-  height:100%;
   object-fit:cover;
+  margin:18px 0;
+  filter:brightness(.75) saturate(.8);
 }
 
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
-}
-
-.stat{
-  background:rgba(255,255,255,.58);
-  border-radius:22px;
-  padding:16px;
-  text-align:center;
-}
-
-.stat strong{
-  display:block;
-  font-family:'Cormorant Garamond',serif;
-  font-size:34px;
-  color:var(--wood);
-}
-
-.stat span{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.bottom-nav{
+.nav{
   position:fixed;
-  bottom:0;
   left:0;
   right:0;
-  height:92px;
-  background:rgba(255,253,248,.9);
+  bottom:0;
+  height:88px;
+  background:rgba(246,240,228,.94);
   backdrop-filter:blur(22px);
   display:flex;
   justify-content:space-around;
   align-items:center;
-  border-top:1px solid rgba(70,50,32,.08);
-  z-index:100;
+  z-index:50;
+  border-top:1px solid rgba(0,0,0,.06);
 }
 
 .nav-item{
+  color:#8B887D;
+  font-size:12px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:7px;
-  color:#9B927F;
-  font-size:12px;
+  gap:6px;
   cursor:pointer;
 }
 
-.nav-item.active{color:var(--green);}
-.icon{font-size:22px;}
+.nav-item.active{
+  color:#2E3A26;
+}
 
-.footer{
-  margin-top:42px;
-  color:var(--muted);
-  line-height:1.8;
-  font-size:14px;
+.icon{
+  font-size:22px;
 }
 
 @media(max-width:700px){
-  .hero h1{font-size:58px;}
-  .title{font-size:48px;}
-  .house{flex-direction:column;align-items:flex-start;}
-  .house img{width:100%;height:220px;}
+  .hero h1{font-size:66px}
+  .top-title h2{font-size:48px}
 }
 </style>
 </head>
@@ -356,61 +314,86 @@ body{
   <video autoplay muted loop playsinline>
     <source src="https://cdn.coverr.co/videos/coverr-tree-branches-moving-in-the-wind-1561574210413?download=1080p" type="video/mp4">
   </video>
-  <div class="overlay"></div>
+
   <div class="hero-content">
-    <div class="logo-small">FOR / REST</div>
+    <div class="label">FOR / REST</div>
     <h1>FORREST</h1>
-    <p>Премиальный глэмпинг на реке Дубна. Тишина, взрослый отдых и дерево, к которому возвращаются.</p>
+    <p>Премиальный глэмпинг на Дубне. Тишина, взрослый отдых и дерево, к которому возвращаются.</p>
   </div>
 </section>
 
 <div id="home" class="page active">
-  <div class="section-label">Private forest retreat</div>
-  <div class="title">Твоё место в лесу</div>
-  <div class="subtitle">
-    FORREST — глэмпинг для взрослых гостей, которым важны тишина, приватность, эстетика и предсказуемый отдых без лишнего шума.
+  <div class="top-title">
+    <div class="label">Private forest retreat</div>
+    <h2>Тишина, к которой возвращаются</h2>
+    <p>FORREST — adults only глэмпинг в лесу на реке Дубна. Без суеты, без случайного шума, без лишнего контакта.</p>
   </div>
 
-  <div class="card visual-card">
+  <div class="card image-card">
     <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1600&auto=format&fit=crop">
-    <div class="inner">
-      <h2>Дерево возвращений</h2>
-      <p>При первом визите гость сажает своё дерево. Оно становится личным знаком места.</p>
+    <div class="content">
+      <h3>Ваше дерево</h3>
+      <p>При первом визите гость сажает дерево. Оно становится личной точкой возвращения.</p>
       <button class="button" onclick="openBooking()">Выбрать дом</button>
     </div>
   </div>
 
   <div class="card">
-    <div class="section-label">Формат</div>
-    <h3 style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--wood);margin-bottom:12px;">
-      Тишина как часть сервиса
-    </h3>
-    <p class="subtitle">
-      Child-free и pet-free формат подаётся не как запрет, а как обещание: отдых не будет нарушен случайным шумом, суетой и непредсказуемыми соседями.
-    </p>
-    <div class="badges">
-      <div class="badge">adults only</div>
-      <div class="badge">pet-free</div>
-      <div class="badge">silent hours</div>
-      <div class="badge">contactless service</div>
+    <div class="label">Promise</div>
+    <h3>Тишина как сервис</h3>
+    <p>Child-free и pet-free формат подаётся как гарантия предсказуемого отдыха: никто не нарушит ваше восстановление.</p>
+    <div class="grid">
+      <div class="mini"><strong>18+</strong><span>взрослая атмосфера</span></div>
+      <div class="mini"><strong>0</strong><span>случайного шума</span></div>
+      <div class="mini"><strong>24/7</strong><span>concierge в приложении</span></div>
+      <div class="mini"><strong>1</strong><span>личное дерево</span></div>
     </div>
   </div>
 </div>
 
+<div id="packages" class="page">
+  <div class="top-title">
+    <div class="label">Curated stays</div>
+    <h2>Готовые сценарии</h2>
+    <p>Не набор услуг, а продуманные поездки: дом, еда, баня, чан и впечатления уже собраны в один маршрут.</p>
+  </div>
+
+  <div class="card image-card">
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop">
+    <div class="content">
+      <h3>Romantic Return</h3>
+      <p>Дом для двоих, чан, ужин с сервировкой, завтрак в постель и фото у вашего дерева.</p>
+      <button class="button">Выбрать пакет</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Silent Workation</h3>
+    <p>5 ночей в будни: рабочее место у панорамного окна, быстрый Wi-Fi, домашние сеты еды и уборка по расписанию.</p>
+    <button class="button dark">Подробнее</button>
+  </div>
+
+  <div class="card">
+    <h3>Corporate Offsite</h3>
+    <p>Проживание, питание, шатёр для сессий, координатор, проектор, флипчарт и вечер у костра.</p>
+    <button class="button dark">Оставить заявку</button>
+  </div>
+</div>
+
 <div id="booking" class="page">
-  <div class="section-label">Stay</div>
-  <div class="title">Дома для возвращения</div>
-  <div class="subtitle">
-    Каждый дом стоит отдельно, сохраняет приватность и открывает вид на лес или реку.
+  <div class="top-title">
+    <div class="label">Residences</div>
+    <h2>Дома в лесу</h2>
+    <p>Отдельные модули с панорамными окнами, мягким светом, приватной террасой и видом на лес или реку.</p>
   </div>
 
   <div class="card house">
     <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1200&auto=format&fit=crop">
     <div>
       <h3>Forest Lodge</h3>
-      <p>Панорамные окна, терраса, камин, мини-кухня и горячий чан.</p>
+      <p>Камин, терраса, чан, премиальное бельё.</p>
       <div class="price">от 18 000 ₽ / ночь</div>
-      <button class="button" onclick="bookHouse('Forest Lodge')">Забронировать</button>
+      <button class="button dark" onclick="bookHouse('Forest Lodge')">Забронировать</button>
     </div>
   </div>
 
@@ -418,9 +401,9 @@ body{
     <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop">
     <div>
       <h3>A-frame Silence</h3>
-      <p>Дом для пары или workation: рабочее место у окна, быстрый Wi-Fi, тёплый свет.</p>
+      <p>Для пары или workation. Wi-Fi, стол у окна, тёплый свет.</p>
       <div class="price">от 14 000 ₽ / ночь</div>
-      <button class="button" onclick="bookHouse('A-frame Silence')">Забронировать</button>
+      <button class="button dark" onclick="bookHouse('A-frame Silence')">Забронировать</button>
     </div>
   </div>
 
@@ -428,138 +411,86 @@ body{
     <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1200&auto=format&fit=crop">
     <div>
       <h3>Big House</h3>
-      <p>Для взрослой компании: гостиная, баня, BBQ-зона и отдельная динамичная зона.</p>
+      <p>Для взрослой компании. Баня, BBQ и отдельная зона.</p>
       <div class="price">от 34 000 ₽ / ночь</div>
-      <button class="button" onclick="bookHouse('Big House')">Забронировать</button>
+      <button class="button dark" onclick="bookHouse('Big House')">Забронировать</button>
     </div>
-  </div>
-</div>
-
-<div id="packages" class="page">
-  <div class="section-label">Packages</div>
-  <div class="title">Готовые сценарии</div>
-  <div class="subtitle">
-    Не набор отдельных услуг, а продуманные пакеты: дом, еда, баня, чан и впечатления уже собраны в один сценарий.
-  </div>
-
-  <div class="card package">
-    <h3>Romantic return</h3>
-    <p>Дом для двоих, горячий чан, ужин с сервировкой, завтрак в постель и фото у вашего дерева.</p>
-    <button class="button">Выбрать пакет</button>
-  </div>
-
-  <div class="card package">
-    <h3>Silent workation</h3>
-    <p>5 ночей в будни, рабочее место у окна, быстрый Wi-Fi, домашние сеты еды и уборка по расписанию.</p>
-    <button class="button">Выбрать пакет</button>
-  </div>
-
-  <div class="card package">
-    <h3>Corporate offsite</h3>
-    <p>Проживание, питание, шатёр для сессий, флипчарт, проектор, координатор и вечер у костра.</p>
-    <button class="button">Оставить заявку</button>
   </div>
 </div>
 
 <div id="service" class="page">
-  <div class="section-label">Concierge</div>
-  <div class="title">Сервис без лишних слов</div>
-  <div class="subtitle">
-    Закажите еду, баню, чан, массаж или уборку. Можно выбрать формат «оставить у двери».
+  <div class="top-title">
+    <div class="label">Concierge</div>
+    <h2>Сервис без лишних слов</h2>
+    <p>Еда, баня, чан, массаж и уборка — через приложение. Можно выбрать «оставить у двери».</p>
   </div>
 
   <div class="card">
-    <div class="menu-item">
+    <div class="service-row">
       <div>
         <h3>Завтрак у окна</h3>
-        <p>Горячий завтрак, кофе, ягоды и тёплая подача к выбранному времени.</p>
+        <p>Горячий завтрак, кофе, ягоды, мягкая подача.</p>
       </div>
       <div class="plus" onclick="addService('Завтрак у окна')">+</div>
     </div>
 
-    <div class="menu-item">
+    <div class="service-row">
       <div>
         <h3>Хвойный чан</h3>
-        <p>Персонал заранее подготовит чан на террасе: пихта, травы, горячая вода.</p>
+        <p>Пихта, травы, горячая вода, подготовка к вашему времени.</p>
       </div>
       <div class="plus" onclick="addService('Хвойный чан')">+</div>
     </div>
 
-    <div class="menu-item">
+    <div class="service-row">
       <div>
         <h3>Банный ритуал</h3>
-        <p>Растопка, аромапарение, веники и натуральное скрабирование.</p>
+        <p>Аромапарение, веники, скрабирование, тишина.</p>
       </div>
       <div class="plus" onclick="addService('Банный ритуал')">+</div>
-    </div>
-
-    <div class="menu-item" style="border:none;">
-      <div>
-        <h3>Оставить у двери</h3>
-        <p>Минимум контакта: заказ будет доставлен бесконтактно.</p>
-      </div>
-      <div class="plus" onclick="addService('Оставить у двери')">+</div>
     </div>
   </div>
 </div>
 
 <div id="profile" class="page">
-  <div class="section-label">My Forrest</div>
-  <div class="title">Моё дерево</div>
-
-  <div class="card tree-card">
-    <p style="color:var(--muted);margin-bottom:8px;">Берёза №17 · посажена 12 октября 2026</p>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;color:var(--wood);">
-      Дерево Кирилла
-    </h2>
-
-    <div class="tree-visual">
-      <img src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?q=80&w=1400&auto=format&fit=crop">
-    </div>
-
-    <p class="subtitle">
-      Ваше дерево меняется по сезонам. Каждое возвращение сохраняется как часть личной истории.
-    </p>
-
-    <div class="stats">
-      <div class="stat"><strong>3</strong><span>возврата</span></div>
-      <div class="stat"><strong>2</strong><span>сезона</span></div>
-      <div class="stat"><strong>250</strong><span>баллов</span></div>
-    </div>
-
-    <button class="button light-button" onclick="showTreeQR()">Показать QR дерева</button>
+  <div class="top-title">
+    <div class="label">My Forrest</div>
+    <h2>Моё дерево</h2>
+    <p>Личная история возвращений. Сезоны, фотографии, даты и дерево, которое растёт вместе с вами.</p>
   </div>
 
-  <div class="footer">
-    FORREST<br>
-    Твоё дерево. Твоя тишина. Твой лес.
+  <div class="card">
+    <div class="label">Берёза №17 · 12 октября 2026</div>
+    <h3>Дерево Кирилла</h3>
+
+    <img class="tree-img" src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?q=80&w=1400&auto=format&fit=crop">
+
+    <div class="grid">
+      <div class="mini"><strong>3</strong><span>возврата</span></div>
+      <div class="mini"><strong>2</strong><span>сезона</span></div>
+      <div class="mini"><strong>250</strong><span>баллов</span></div>
+      <div class="mini"><strong>QR</strong><span>бирка дерева</span></div>
+    </div>
+
+    <button class="button">Показать QR дерева</button>
   </div>
 </div>
 
-<nav class="bottom-nav">
+<nav class="nav">
   <div class="nav-item active" onclick="showPage('home', this)">
-    <div class="icon">⌂</div>
-    <div>Главная</div>
+    <div class="icon">⌂</div><div>Главная</div>
   </div>
-
   <div class="nav-item" onclick="showPage('packages', this)">
-    <div class="icon">◌</div>
-    <div>Пакеты</div>
+    <div class="icon">◌</div><div>Пакеты</div>
   </div>
-
   <div class="nav-item" onclick="showPage('booking', this)">
-    <div class="icon">□</div>
-    <div>Дома</div>
+    <div class="icon">□</div><div>Дома</div>
   </div>
-
   <div class="nav-item" onclick="showPage('service', this)">
-    <div class="icon">＋</div>
-    <div>Сервис</div>
+    <div class="icon">＋</div><div>Сервис</div>
   </div>
-
   <div class="nav-item" onclick="showPage('profile', this)">
-    <div class="icon">◎</div>
-    <div>Дерево</div>
+    <div class="icon">◎</div><div>Дерево</div>
   </div>
 </nav>
 
@@ -567,10 +498,10 @@ body{
 const pages = document.querySelectorAll('.page');
 
 function showPage(id, el){
-  pages.forEach(page => page.classList.remove('active'));
+  pages.forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 
-  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
 
   window.scrollTo({top:0,behavior:'smooth'});
@@ -582,28 +513,10 @@ function openBooking(){
 
 function addService(name){
   alert('Добавлено: ' + name);
-
-  if(window.Telegram?.WebApp){
-    Telegram.WebApp.sendData(JSON.stringify({
-      type:'service',
-      item:name
-    }));
-  }
 }
 
 function bookHouse(name){
   alert('Вы выбрали: ' + name);
-
-  if(window.Telegram?.WebApp){
-    Telegram.WebApp.sendData(JSON.stringify({
-      type:'booking',
-      house:name
-    }));
-  }
-}
-
-function showTreeQR(){
-  alert('QR-код дерева будет открыт в личном кабинете гостя.');
 }
 
 if(window.Telegram?.WebApp){
@@ -611,9 +524,9 @@ if(window.Telegram?.WebApp){
   Telegram.WebApp.ready();
 }
 
-setTimeout(() => {
-  document.getElementById('hero').style.display = 'none';
-}, 4200);
+setTimeout(()=>{
+  document.getElementById('hero').style.display='none';
+},4200);
 </script>
 
 </body>
